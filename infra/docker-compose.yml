@@ -1,0 +1,40 @@
+services:
+  namenode:
+    image: apache/hadoop:3
+    hostname: namenode
+    command: ["hdfs", "namenode"]
+    ports:
+      - 9870:9870 # UI
+      - 8020:8020 # RPC
+    env_file:
+      - ./hadoop.env
+    environment:
+        ENSURE_NAMENODE_DIR: "/tmp/hadoop-root/dfs/name"
+  datanode:
+    image: apache/hadoop:3
+    command: ["hdfs", "datanode"]
+    env_file:
+      - ./hadoop.env
+  resourcemanager:
+    image: apache/hadoop:3
+    hostname: resourcemanager
+    command: ["yarn", "resourcemanager"]
+    ports:
+       - 8088:8088
+    env_file:
+      - ./hadoop.env
+    volumes:
+      - ./test.sh:/opt/test.sh
+  nodemanager:
+    image: apache/hadoop:3
+    command: ["yarn", "nodemanager"]
+    env_file:
+      - ./hadoop.env
+
+  spark-notebook:
+    image: jupyter/pyspark-notebook:hadoop-3
+    command: ["start-notebook.sh", "--NotebookApp.token=''", "--NotebookApp.password=''"]
+    ports:
+      - 8888:8888  # WebUI
+      - 4040:4040  # Spark WebUI when local session started
+      - 20002:20002 # Spark Driver Port
