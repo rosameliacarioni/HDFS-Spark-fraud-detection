@@ -11,7 +11,7 @@ disable permissions for local development.
 If you have jupyter and spark working locally, you don't need to use the jupyter-spark container and should be able to
 connect to the hadoop cluster from your local jupyter notebook.
 
-> **Important ports:**
+> **Important local ports (access with http://localhost:\<port\>)**
 > - Hadoop: 9870 (namenode), **8020** (hdfs port → Important for reading/writing files)
 > - Spark: 4040 (UI), 20002 (Driver - seemingly not working)
 > - Jupyter: **8888** (UI)
