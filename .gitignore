@@ -1,3 +1,6 @@
 hadoop-spark
 .ipynb_checkpoints
 .idea
+
+*.tar.gz
+infra/hdfs/data

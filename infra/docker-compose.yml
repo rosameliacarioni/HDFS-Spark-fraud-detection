@@ -1,35 +1,28 @@
 services:
   namenode:
-    image: apache/hadoop:3
+    build: ./hdfs
     hostname: namenode
-    command: ["hdfs", "namenode"]
+    command: start-hadoop namenode
     ports:
-      - 9870:9870 # UI
       - 8020:8020 # RPC
-    env_file:
-      - ./hadoop.env
-    environment:
-        ENSURE_NAMENODE_DIR: "/tmp/hadoop-root/dfs/name"
-  datanode:
-    image: apache/hadoop:3
-    command: ["hdfs", "datanode"]
-    env_file:
-      - ./hadoop.env
-  resourcemanager:
-    image: apache/hadoop:3
-    hostname: resourcemanager
-    command: ["yarn", "resourcemanager"]
-    ports:
-       - 8088:8088
-    env_file:
-      - ./hadoop.env
+      - 9975:9870 # WebUI
     volumes:
-      - ./test.sh:/opt/test.sh
-  nodemanager:
-    image: apache/hadoop:3
-    command: ["yarn", "nodemanager"]
-    env_file:
-      - ./hadoop.env
+      - ./hdfs/conf/core-site.xml:/opt/hadoop/etc/hadoop/core-site.xml
+      - ./hdfs/conf/hdfs-site.xml:/opt/hadoop/etc/hadoop/hdfs-site.xml
+      - ./hdfs/data:/opt/hdfs
+    environment:
+      HDFS_USER: hdfsuser
+  datanode:
+    build: ./hdfs
+    command: start-hadoop datanode
+    ports:
+      - 9164:9864
+    environment:
+      HDFS_USER: hdfsuser
+    volumes:
+      - ./hdfs/conf/core-site.xml:/opt/hadoop/etc/hadoop/core-site.xml
+      - ./hdfs/conf/hdfs-site.xml:/opt/hadoop/etc/hadoop/hdfs-site.xml
+      - ./hdfs/data:/opt/hdfs
 
   spark-notebook:
     image: jupyter/pyspark-notebook:hadoop-3
