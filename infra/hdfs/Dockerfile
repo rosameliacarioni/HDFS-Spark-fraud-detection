@@ -18,10 +18,10 @@ RUN apt-get install -y openjdk-8-jdk wget net-tools ssh
 # Create hadoop home directory
 RUN mkdir -p /opt/hadoop-${HADOOP_VERSION}
 
-# Copy hadoop-3.2.4.tar.gz
-COPY hadoop-${HADOOP_VERSION}.tar.gz /tmp/hadoop-${HADOOP_VERSION}.tar.gz
+# Copy hadoop-3.2.4.tar.gz if you have it locally
+# COPY hadoop-${HADOOP_VERSION}.tar.gz /tmp/hadoop-${HADOOP_VERSION}.tar.gz
 # Download hadoop (slow)
-# wget https://downloads.apache.org/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz -P /tmp;
+wget https://downloads.apache.org/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz -P /tmp;
 
 # Extract hadoop
 RUN tar -xvzf /tmp/hadoop-${HADOOP_VERSION}.tar.gz -C /opt/hadoop-${HADOOP_VERSION} --strip-components=1
