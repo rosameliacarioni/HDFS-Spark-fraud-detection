@@ -26,5 +26,6 @@ For convenience, the `notebooks/` folder of this project is also mounted to the 
 See the example in `notebooks/test.ipynb`.
 
 ### Using Pyspark container from an IDE
-This was only tested in PyCharm professional 2024.2.2, but the principle should be the same for other IDEs.
-When editing a notebook, you can choose the jupyter server to use the pyspark container at `http://localhost:8888/`.
+When editing a notebook in VS Code or PyCharm, you can choose to use the existing jupyter kernel/server of the pyspark container:
+- URL: `http://localhost:8888/`
+- Token: `ID2221` (can be changed in docker-compose.yml)

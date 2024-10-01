@@ -26,7 +26,7 @@ services:
 
   spark-notebook:
     image: jupyter/pyspark-notebook:hadoop-3
-    command: ["start-notebook.sh", "--NotebookApp.token=''", "--NotebookApp.password=''"]
+    command: ["start-notebook.sh", "--NotebookApp.token='ID2221'", "--NotebookApp.password='ID2221'"]
     ports:
       - 8888:8888  # WebUI
       - 4040:4040  # Spark WebUI when local session started
