@@ -31,3 +31,5 @@ services:
       - 8888:8888  # WebUI
       - 4040:4040  # Spark WebUI when local session started
       - 20002:20002 # Spark Driver Port
+    volumes:
+      - ../notebooks:/home/jovyan/work
