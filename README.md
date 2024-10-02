@@ -12,6 +12,10 @@ connect to the hadoop cluster from your local jupyter notebook.
 
 `infra/hdfs` contains the custom hadoop Dockerfile, configuration files, scripts, and a `data` directory for storing the hdfs data.
 
+> **Notes**
+> - Due to the different ways windows and unix handle line endings, the start hadoop scripts located in the HDFS folder might not run, to fix this you need to change the
+> - line endings of these scripts using your ide for example. The line endings should be LF (Unix) and not CRLF (Windows). For reference, https://stackoverflow.com/questions/29045140/env-bash-r-no-such-file-or-directory
+
 > **Important local ports (access with "http://localhost:" + port)**
 > - Hadoop: 9975 (namenode), **8020** (hdfs port → Important for reading/writing files)
 > - Spark: 4040 (UI), 20002 (Driver - seemingly not working)
