@@ -23,6 +23,19 @@ services:
       - ./hdfs/conf/core-site.xml:/opt/hadoop/etc/hadoop/core-site.xml
       - ./hdfs/conf/hdfs-site.xml:/opt/hadoop/etc/hadoop/hdfs-site.xml
       - ./hdfs/data:/opt/hdfs
+  cassandra:
+    hostname: cassandra
+    image: cassandra:5.0
+    container_name: cassandra-container
+    ports:
+      - "9042:9042"
+    environment:
+      - CASSANDRA_USER=admin
+      - CASSANDRA_PASSWORD=admin
+      - HEAP_NEWSIZE=128M
+      - MAX_HEAP_SIZE=512M
+    volumes:
+      - cassandra-data:/var/lib/cassandra
 
   spark-notebook:
     image: jupyter/pyspark-notebook:hadoop-3
@@ -33,3 +46,6 @@ services:
       - 20002:20002 # Spark Driver Port
     volumes:
       - ../notebooks:/home/jovyan/work
+
+volumes:
+  cassandra-data:

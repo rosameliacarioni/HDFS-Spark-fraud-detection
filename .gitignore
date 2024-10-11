@@ -4,4 +4,5 @@ hadoop-spark
 
 *.tar.gz
 infra/hdfs/data
+infra/cassandra-data
 notebooks/data
