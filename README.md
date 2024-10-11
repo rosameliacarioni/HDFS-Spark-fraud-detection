@@ -1,5 +1,14 @@
 # ID2221 Project
 
+## Dataset
+
+Sérgio Jesus, José Pombal, Duarte Alves, André Cruz, Pedro Saleiro, Rita P. Ribeiro, Joao Gama, and Pedro Bizarro. Turning the Tables: Biased, Imbalanced, Dynamic Tabular Datasets for ML Evaluation, November 2022.
+URL http://arxiv.org/abs/2211.13358. arXiv:2211.13358
+
+[Source on Kaggle](https://www.kaggle.com/datasets/sgpjesus/bank-account-fraud-dataset-neurips-2022)
+
+Dataset: Base ("Sampled to best represent original dataset")
+
 ## Infrastructure
 `infra/docker-compose.yml` contains the containers for a single-node Hadoop cluster and a jupyter-spark container.
 Start with `docker compose up` or manage with whatever Docker UI you use.
