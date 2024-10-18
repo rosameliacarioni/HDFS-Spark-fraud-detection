@@ -29,13 +29,21 @@ RUN tar -xvzf /tmp/hadoop-${HADOOP_VERSION}.tar.gz -C /opt/hadoop-${HADOOP_VERSI
 # Keep container running for debugging
 # CMD tail -f /dev/null
 
-# Copy and fix configuration files → Do it in docker compose
-# COPY /conf/*.xml $HADOOP_CONF_DIR/
 
 # Copy start scripts
 COPY start-hadoop.sh /opt/util/bin/start-hadoop
 COPY start-hadoop-namenode.sh /opt/util/bin/start-hadoop-namenode
 COPY start-hadoop-datanode.sh /opt/util/bin/start-hadoop-datanode
+
+# Fix permissions
+RUN chmod +x /opt/util/bin/start-hadoop
+RUN chmod +x /opt/util/bin/start-hadoop-namenode
+RUN chmod +x /opt/util/bin/start-hadoop-datanode
+
+# Fix line endings
+RUN sed -i 's/\r$//' /opt/util/bin/start-hadoop
+RUN sed -i 's/\r$//' /opt/util/bin/start-hadoop-namenode
+RUN sed -i 's/\r$//' /opt/util/bin/start-hadoop-datanode
 
 # Set paths
 ENV PATH=$PATH:/opt/util/bin
