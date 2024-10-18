@@ -10,8 +10,10 @@ fi
 # Set HADOOP_USER_NAME environment vairable
 HADOOP_USER_NAME="${HDFS_USER}"
 echo "export  HADOOP_USER_NAME=\"${HDFS_USER}\"" >> /etc/bash.bashrc
-# Create user for HDFS
-adduser --no-create-home --disabled-password --gecos "" $HDFS_USER
+# Check if HDFS user exists, if not, create the user
+if ! id -u $HDFS_USER > /dev/null 2>&1; then
+  adduser --no-create-home --disabled-password --gecos "" $HDFS_USER
+fi
 # Fix directory permissions
 if ! [[ $(whoami) = $HDFS_USER ]]; then
   find /opt/hdfs ! -user $HDFS_USER -print0 | xargs -0 chown $HDFS_USER:$HDFS_USER \
