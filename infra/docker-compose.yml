@@ -31,7 +31,7 @@ services:
       - "9042:9042"
     environment:
       - CASSANDRA_USER=admin
-      - CASSANDRA_PASSWORD=admin
+      - CASSANDRA_PASSWORD=admin # Note: Only for testing purposes
       - HEAP_NEWSIZE=128M
       - MAX_HEAP_SIZE=512M
     volumes:
