@@ -1,13 +1,24 @@
 # ID2221 Project
 
-## Dataset
+## Instructions
+### Prerequisites:
+- Docker (tested with v27.3.1 on Ubuntu and v27.2.0 on Docker for Windows)
 
-Sérgio Jesus, José Pombal, Duarte Alves, André Cruz, Pedro Saleiro, Rita P. Ribeiro, Joao Gama, and Pedro Bizarro. Turning the Tables: Biased, Imbalanced, Dynamic Tabular Datasets for ML Evaluation, November 2022.
+### Steps:
+1. Enter the project root directory (contains `infra/` and `notebooks/` subdirectories).
+2. Download `Base.csv` from [Kaggle](https://www.kaggle.com/datasets/sgpjesus/bank-account-fraud-dataset-neurips-2022) and place it into `notebooks/data`.
+3. Start the Docker Compose deployment with `docker compose -f infra/docker-compose.yml up`. After pulling and building all images (3-5 minutes), the services will start. The HDFS containers may need one or two minutes to start up fully.
+4. Open the Jupyter Web-UI or connect to it from an editor of choice at `http://localhost:8888` using the token `ID2221`.
+5. Navigate to the `work/hdfs` directory (mounted from the `notebooks/hdfs` directory), open and execute either the exploratory analysis (`eda.ipynb`) or gradient boosted tree model training and evaluation (`basic_gbt.ipynb`).
+6. The visualizations will be visible in the notebook and model prediction results saved to the `results` keyspace of the local Cassandra instance.
+
+## Dataset
+Source: Sérgio Jesus, José Pombal, Duarte Alves, André Cruz, Pedro Saleiro, Rita P. Ribeiro, Joao Gama, and Pedro Bizarro. Turning the Tables: Biased, Imbalanced, Dynamic Tabular Datasets for ML Evaluation, November 2022.
 URL http://arxiv.org/abs/2211.13358. arXiv:2211.13358
 
 [Source on Kaggle](https://www.kaggle.com/datasets/sgpjesus/bank-account-fraud-dataset-neurips-2022)
 
-Dataset: Base ("Sampled to best represent original dataset")
+Used data: `Base.csv` ("Sampled to best represent original dataset")
 
 ## Infrastructure
 `infra/docker-compose.yml` contains the containers for a single-node Hadoop cluster and a jupyter-spark container.
@@ -21,24 +32,12 @@ connect to the hadoop cluster from your local jupyter notebook.
 
 `infra/hdfs` contains the custom hadoop Dockerfile, configuration files, scripts, and a `data` directory for storing the hdfs data.
 
-> **Notes**
-> - Due to the different ways windows and unix handle line endings, the start hadoop scripts located in the HDFS folder might not run, to fix this you need to change the
-> - line endings of these scripts using your ide for example. The line endings should be LF (Unix) and not CRLF (Windows). For reference, https://stackoverflow.com/questions/29045140/env-bash-r-no-such-file-or-directory
-
 > **Important local ports (access with "http://localhost:" + port)**
-> - Hadoop: 9975 (namenode), **8020** (hdfs port → Important for reading/writing files)
-> - Spark: 4040 (UI), 20002 (Driver - seemingly not working)
+> - Hadoop: 9975 (namenode UI), **8020** (hdfs port → Important for reading/writing files)
+> - Spark: 4040 (UI)
 > - Jupyter: **8888** (UI)
 
-### Uploading to HDFS
-This is currently a bit tricky, but the easiest is to do it through the jupyter-spark container.
-The container is on the same network as the hadoop cluster, so there are no hostname issues.
-
-For convenience, the `notebooks/` folder of this project is also mounted to the `work/` directory of the jupyter-spark container.
-
-See the example in `notebooks/test.ipynb`.
-
-### Using Pyspark container from an IDE
+## Using Pyspark container from an IDE
 When editing a notebook in VS Code or PyCharm, you can choose to use the existing jupyter kernel/server of the pyspark container:
 - URL: `http://localhost:8888/`
 - Token: `ID2221` (can be changed in docker-compose.yml)
