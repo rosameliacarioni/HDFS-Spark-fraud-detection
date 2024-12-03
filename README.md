@@ -1,4 +1,5 @@
-# ID2221 Project
+# Fraud Detection Using HDFS, Spark, and Cassandra
+[Check out our report for more detailed information.](https://github.com/user-attachments/files/17997292/ID2221_Group_report_project.pdf)
 
 ## Instructions
 ### Prerequisites:
