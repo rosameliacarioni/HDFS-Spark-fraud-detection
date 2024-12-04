@@ -1,5 +1,8 @@
-# Fraud Detection Using HDFS, Spark, and Cassandra
+# Fraud Detection in Bank Account Openings with HDFS, Spark, and Cassandra
 [Check out our report for more detailed information.](https://github.com/user-attachments/files/17997292/ID2221_Group_report_project.pdf)
+
+## Description
+This project was developed as part of the ID2221 course at KTH to gain hands-on experience with big data tools/technologies. The primary objective was to understand and implement scalable infrastructure using HDFS, Apache Spark, and Apache Cassandra, while applying machine learning techniques to detect fraudulent bank account openings. By using the the Bank Account Fraud (BAF) dataset, we explore distributed data processing, storage solutions and model training in a big data ecosystem. The project also provides insights into EDA, handling imbalanced datasets and evaluating model performance using metrics like AUC, Precision, and Recall.
 
 ## Instructions
 ### Prerequisites:
